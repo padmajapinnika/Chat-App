@@ -7,14 +7,37 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from 'react-native';
+import { getAuth, signInAnonymously } from 'firebase/auth';
 
 const Start = ({ navigation }) => {
   // State to hold the user's name
   const [name, setName] = useState('');
-
-  // State to hold the selected background color
+// State to hold the selected background color
   const [selectedColor, setSelectedColor] = useState('#fff'); // Default color
+  
+  const auth = getAuth();
+  const signInUser = () => {
+    signInAnonymously(auth)
+      .then((result) => {
+        if (result.user) {
+          const userId = result.user.uid;
+          //console.log("User ID:", userId);
+          
+          Alert.alert("Sign-in Successful", `Welcome, ${name || 'Anonymous'}`);
+          navigation.navigate('Chat', {
+            name: name || 'Anonymous',
+            userId: userId,
+            backgroundColor: selectedColor,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Sign-in error:', error);
+        Alert.alert('Unable to sign in. Please try again later.');
+      });
+  };
 
   // Function to update the selected color
   const handleColorSelect = (color) => {
@@ -39,21 +62,14 @@ const Start = ({ navigation }) => {
           onChangeText={setName}
         />
 
-        {/* Navigation button to Chat screen with name and color passed as params */}
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Chat', {
-            name,
-            backgroundColor: selectedColor
-          })}
-        >
+       
+      {/* Start Chatting button triggers anonymous sign-in */}
+      <TouchableOpacity style={styles.button} onPress={signInUser}>
           <Text style={styles.buttonText}>Start Chatting</Text>
         </TouchableOpacity>
 
-        {/* Color selection label */}
         <Text style={styles.colorTitle}>Choose a background color:</Text>
 
-        {/* Color options displayed as circles */}
         <View style={styles.colorOptions}>
           {['#fff', '#f8b400', '#ff6b6b', '#1e90ff', '#32cd32'].map((color, index) => (
             <TouchableOpacity
