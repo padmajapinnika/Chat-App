@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import { getAuth, signInAnonymously } from 'firebase/auth';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Start = ({ navigation }) => {
   // State to hold the user's name

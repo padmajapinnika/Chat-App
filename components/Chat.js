@@ -1,10 +1,11 @@
 // Import necessary React and React Native components
 import React, { useState, useEffect } from 'react'; // React hooks for managing state and lifecycle
-import { Bubble, GiftedChat } from "react-native-gifted-chat"; // GiftedChat and Bubble for chat UI
+import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat"; // GiftedChat and Bubble for chat UI
 import { StyleSheet, View, Platform, KeyboardAvoidingView } from 'react-native';
 import { collection, query, onSnapshot, orderBy, addDoc } from 'firebase/firestore'; // Firebase Firestore imports
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
-const Chat = ({ route, navigation, db }) => {
+const Chat = ({ route, navigation, db, isConnected }) => {
   // Destructure name and backgroundColor from route params passed to this screen
   const { name, userId, backgroundColor } = route.params; // Use 'userId' instead of 'userID'
 
@@ -18,23 +19,43 @@ const Chat = ({ route, navigation, db }) => {
 
   // Fetch messages from Firestore in real time
   useEffect(() => {
-    const messagesQuery = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
-    const unsubscribe = onSnapshot(messagesQuery, (querySnapshot) => {
-      const messagesFirestore = querySnapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-          _id: doc.id,
-          text: data.text || '',
-          createdAt: data.createdAt?.toDate(), // Convert Firestore Timestamp to JS Date
-          user: data.user || {},
-          system: data.system || false,
-        };
-      });
-      setMessages(messagesFirestore);
-    });
+    const loadMessages = async () => {
+      if (isConnected) {
+        const messagesQuery = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
+        const unsubscribe = onSnapshot(messagesQuery, async(querySnapshot) => {
+          const messagesFirestore = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              _id: doc.id,
+              text: data.text || '',
+              createdAt: data.createdAt?.toDate(), // Convert Firestore Timestamp to JS Date
+              user: data.user || {},
+              system: data.system || false,
+            };
+          });
+          setMessages(messagesFirestore);
+          try {
+            await AsyncStorage.setItem('messages', JSON.stringify(messagesFirestore));
+          } catch (error) {
+            console.error('Error saving messages to AsyncStorage:', error);
+          }
+        });
+        return () => unsubscribe(); // Cleanup listener on unmount
+      } else {
+        // If not connected, load messages from AsyncStorage
+        try {
+          const cachedMessages = await AsyncStorage.getItem('messages');
+          if (cachedMessages) {
+            setMessages(JSON.parse(cachedMessages));
+          }
+        } catch (error) {
+          console.error('Error loading messages from AsyncStorage:', error);
+        }
+      }
+    };
 
-    return () => unsubscribe(); // Cleanup listener on unmount
-  }, [db]);
+    loadMessages();
+  }, [isConnected, db]);
 
   const onSend = async (newMessages) => {
     if (!userId) {
@@ -71,6 +92,15 @@ const Chat = ({ route, navigation, db }) => {
     />
   );
 
+  // Custom InputToolbar for when offline
+  const renderInputToolbar = (props) => {
+    if (isConnected) {
+      return <InputToolbar {...props} />;
+    } else {
+      return null;  // Return null if offline
+    }
+  };
+
   // Set the screen title
   useEffect(() => {
     navigation.setOptions({ title: name });
@@ -83,6 +113,7 @@ const Chat = ({ route, navigation, db }) => {
           <GiftedChat
             messages={messages}
             renderBubble={renderBubble}
+            renderInputToolbar={renderInputToolbar}  // Pass the custom renderInputToolbar
             onSend={onSend}
             user={{ _id: userId, name: name }} // Use 'userId' here
           />
@@ -92,6 +123,7 @@ const Chat = ({ route, navigation, db }) => {
           <GiftedChat
             messages={messages}
             renderBubble={renderBubble}
+            renderInputToolbar={renderInputToolbar}  // Pass the custom renderInputToolbar
             onSend={onSend}
             user={{ _id: userId, name: name }} // Use 'userId' here
           />
