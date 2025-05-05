@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 //import { useActionSheet } from "@expo/react-native-action-sheet";
 // Import navigation containers and stack navigator
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useNetInfo } from '@react-native-community/netinfo';
+
 import { initializeApp } from "firebase/app";
-import { getFirestore, enableNetwork, disableNetwork } from 'firebase/firestore';
+import { getFirestore } from "firebase/firestore";
 
 // Import custom components (screens)
 import Start from './components/Start';
@@ -31,23 +30,6 @@ const db = getFirestore(app);
 
 // Main App component
 const App = () => {
-  const netInfo = useNetInfo()
-  const [isConnected, setIsConnected] = useState(true);
-  useEffect(() => {
-    if (netInfo.isConnected !== null) {
-      setIsConnected(netInfo.isConnected);
-
-      if (netInfo.isConnected) {
-        enableNetwork(db).catch((error) =>
-          console.log('Failed to enable Firestore network:', error)
-        );
-      } else {
-        disableNetwork(db).catch((error) =>
-          console.log('Failed to disable Firestore network:', error)
-        );
-      }
-    }
-  }, [netInfo.isConnected]);
   return (
     // Wrap the navigation structure in a NavigationContainer
     <NavigationContainer>
@@ -58,13 +40,7 @@ const App = () => {
         
         {/* Chat screen will be navigated to from Start */}
         <Stack.Screen name="Chat">
-          {(props) => (
-            <Chat
-              db={db}
-              isConnected={isConnected}
-              {...props}
-            />
-          )}
+          {props => <Chat db={db} {...props}  />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
