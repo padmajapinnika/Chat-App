@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
+// Import custom components (screens)
+import Start from './components/Start';
+import Chat from './components/Chat';
 //import { useActionSheet } from "@expo/react-native-action-sheet";
 // Import navigation containers and stack navigator
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,10 +9,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { initializeApp } from "firebase/app";
 import { getFirestore, enableNetwork, disableNetwork } from 'firebase/firestore';
+import { getStorage } from "firebase/storage";
 
-// Import custom components (screens)
-import Start from './components/Start';
-import Chat from './components/Chat';
+import { Alert } from "react-native";
 
 // Create a native stack navigator instance
 const Stack = createNativeStackNavigator();
@@ -28,26 +29,19 @@ const firebaseConfig = {
 // Initialize Firebase outside the component to prevent reinitialization
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-// Main App component
 const App = () => {
-  const netInfo = useNetInfo()
-  const [isConnected, setIsConnected] = useState(true);
-  useEffect(() => {
-    if (netInfo.isConnected !== null) {
-      setIsConnected(netInfo.isConnected);
+  const connectionStatus = useNetInfo();
 
-      if (netInfo.isConnected) {
-        enableNetwork(db).catch((error) =>
-          console.log('Failed to enable Firestore network:', error)
-        );
-      } else {
-        disableNetwork(db).catch((error) =>
-          console.log('Failed to disable Firestore network:', error)
-        );
-      }
+  useEffect(() => {
+    if (connectionStatus.isConnected === false) {
+      Alert.alert("Connection Lost!");
+      disableNetwork(db);
+    } else if (connectionStatus.isConnected === true) {
+      enableNetwork(db);
     }
-  }, [netInfo.isConnected]);
+  }, [connectionStatus.isConnected]);
   return (
     // Wrap the navigation structure in a NavigationContainer
     <NavigationContainer>
@@ -61,7 +55,8 @@ const App = () => {
           {(props) => (
             <Chat
               db={db}
-              isConnected={isConnected}
+              isConnected={connectionStatus.isConnected}
+              storage={storage}
               {...props}
             />
           )}
