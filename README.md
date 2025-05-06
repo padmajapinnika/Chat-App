@@ -3,138 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App - React Native</title>
+    <title>ChatApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #20232A;
+            color: #61DAFB;
+            text-align: center;
+            padding: 1rem;
+        }
+        h1 {
+            margin: 0;
+        }
+        h2 {
+            color: #20232A;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .badge {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Chat App - React Native</h1>
-    <p>This is a real-time chat application built using <strong>React Native</strong>, <strong>Firebase</strong>, and <strong>Expo</strong>. The app supports image sharing, location sharing, and real-time messaging. Follow the steps below to set up the app locally and get it running.</p>
+    <header>
+        <h1>ChatApp</h1>
+        <p><i>Connect with friends, family, or fellow developers anytime, anywhere!</i></p>
+    </header>
 
-    <h2>Prerequisites</h2>
-    <p>Before you begin, ensure you have the following installed:</p>
-    <ul>
-        <li><strong>Node.js</strong> (v16 or higher) - <a href="https://nodejs.org/">Download Node.js</a></li>
-        <li><strong>Expo CLI</strong> - <a href="https://docs.expo.dev/get-started/installation/">Install Expo CLI</a></li>
-        <li><strong>Android Studio</strong> (for Android emulator) - <a href="https://developer.android.com/studio">Install Android Studio</a></li>
-        <li><strong>Xcode</strong> (for iOS simulator) - <a href="https://developer.apple.com/xcode/">Install Xcode</a></li>
-        <li><strong>Firebase account</strong> - <a href="https://console.firebase.google.com/">Create a Firebase project</a></li>
-    </ul>
+    <main>
+        <section>
+            <h2>🚀 Project Description</h2>
+            <p>This application provides users with a sleek chat interface and options to share images and their location. Built using React Native, this cross-platform app works on both Android and iOS devices with a single codebase!</p>
 
-    <h2>Step 1: Clone the repository</h2>
-    <p>Clone the project to your local machine using the following command:</p>
-    <pre><code>git clone https://github.com/yourusername/chat-app.git
+            <h3>✨ Key Features</h3>
+            <ul>
+                <li>🎨 <strong>Personalized UI</strong> - Choose your chat background image for a customized experience</li>
+                <li>💬 <strong>Real-time Chat</strong> - Exchange messages with friends and family instantly</li>
+                <li>📷 <strong>Image Sharing</strong> - Send photos from your camera or library</li>
+                <li>🗺️ <strong>Location Sharing</strong> - Let others know where you are with a tap</li>
+                <li>📱 <strong>Offline Access</strong> - Read your conversations even without internet connection</li>
+                <li>♿ <strong>Accessibility</strong> - Fully compatible with screen readers</li>
+            </ul>
 
-cd chat-app</code></pre>
+            <h3>👤 User Stories</h3>
+            <ul>
+                <li>✅ As a new user, I want to <strong>easily enter a chat room</strong> so I can quickly start talking to my friends and family</li>
+                <li>✅ As a user, I want to <strong>send messages</strong> to exchange the latest news</li>
+                <li>✅ As a user, I want to <strong>send images</strong> to show what I'm currently doing</li>
+                <li>✅ As a user, I want to <strong>share my location</strong> with friends</li>
+                <li>✅ As a user, I want to <strong>read messages offline</strong> so I can reread conversations anytime</li>
+                <li>✅ As a user with a visual impairment, I want the app to be <strong>compatible with screen readers</strong></li>
+            </ul>
+        </section>
 
-    <h2>Step 2: Install dependencies</h2>
-    <p>Install the necessary dependencies using npm or yarn. Run the following command in your project directory:</p>
-    <pre><code>npm install</code></pre>
-    <p>or, if you're using yarn:</p>
-    <pre><code>yarn install</code></pre>
-    <p>This will install the required libraries to run the chat app.</p>
+        <section>
+            <h2>🛠️ Technologies Used</h2>
+            <h3>Frontend</h3>
+            <ul>
+                <li>React Native - Core framework</li>
+                <li>Expo - Development platform</li>
+                <li>React Navigation - Navigation between screens</li>
+                <li>Expo Image Picker - Camera and image library access</li>
+                <li>Expo Location - Location services</li>
+                <li>React Native Maps - Map display for location sharing</li>
+            </ul>
 
-    <h2>Step 3: Set up Firebase</h2>
-    <h3>3.1 Firebase Project Setup</h3>
-    <ol>
-        <li>Go to <a href="https://console.firebase.google.com/">Firebase Console</a>.</li>
-        <li>Create a new project or use an existing one.</li>
-        <li>Enable Firebase Firestore and Firebase Storage.</li>
-        <li>Generate Firebase credentials (API keys, database URL, etc.) from the Firebase console.</li>
-    </ol>
+            <h3>Backend & Storage</h3>
+            <ul>
+                <li>Google Firestore Database - Real-time message storage</li>
+                <li>Google Firebase Authentication - Anonymous user authentication</li>
+                <li>Firebase Cloud Storage - Storage for images</li>
+                <li>AsyncStorage - Offline data persistence</li>
+            </ul>
+        </section>
 
-    <h3>3.2 Add Firebase Credentials to Your App</h3>
-    <ol>
-        <li>In your Firebase console, go to <strong>Project Settings</strong> > <strong>General</strong>.</li>
-        <li>Under <strong>Your apps</strong>, select <strong>Web</strong> and copy the Firebase config.</li>
-    </ol>
+        <section>
+            <h2>⚙️ Setup and Installation</h2>
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>📦 Node.js</li>
+                <li>🧰 Expo CLI</li>
+                <li>📱 Expo Go app (for physical device testing)</li>
+                <li>🤖 Android Studio (for Android Emulator)</li>
+                <li>🍎 Xcode (for iOS Simulator, Mac only)</li>
+                <li>🔥 Firebase Account</li>
+            </ul>
 
-    <h3>3.3 Add Firebase Config to Your Project</h3>
-    <p>Create a new file called <code>firebaseConfig.js</code> in your <strong>src</strong> directory (or wherever appropriate) and paste the Firebase configuration:</p>
-    <pre><code>import { initializeApp } from "firebase/app";
+            <h3>Installation Steps</h3>
+            <ol>
+                <li>Clone the repository:
+                    <pre><code>git clone https://github.com/padmajapinnika/chat-app.git</code></pre>
+                </li>
+                <li>Navigate to the project directory:
+                    <pre><code>cd chat-app</code></pre>
+                </li>
+                <li>Install dependencies:
+                    <pre><code>npm install</code></pre>
+                </li>
+                <li>Firebase Setup:
+                    <ul>
+                        <li>Create a Firebase project at <a href="https://firebase.google.com">firebase.google.com</a></li>
+                        <li>Enable Firestore Database</li>
+                        <li>Enable Firebase Authentication (Anonymous)</li>
+                        <li>Enable Firebase Storage</li>
+                        <li>Set Storage security rules to allow authenticated reads and writes:</li>
+                        <pre><code>
+                            rules_version = '2';
+                            service firebase.storage {
+                              match /b/{bucket}/o {
+                                match /{allPaths=**} {
+                                  allow read, write: if request.auth != null;
+                                }
+                              }
+                            }
+                        </code></pre>
+                        <li>Get your Firebase configuration details and update them in App.js.</li>
+                    </ul>
+                </li>
+                <li>Install required dependencies:
+                    <pre><code>expo install @react-navigation/native @react-navigation/native-stack</code></pre>
+                    <pre><code>expo install @react-native-async-storage/async-storage</code></pre>
+                    <pre><code>expo install @react-native-community/netinfo</code></pre>
+                    <pre><code>expo install expo-image-picker</code></pre>
+                    <pre><code>expo install expo-location</code></pre>
+                    <pre><code>expo install react-native-maps</code></pre>
+                    <pre><code>expo install @expo/react-native-action-sheet</code></pre>
+                    <pre><code>npm install firebase</code></pre>
+                </li>
+                <li>Start the Expo development server:
+                    <pre><code>npx expo start</code></pre>
+                </li>
+                <li>Run on your preferred platform:
+                    <ul>
+                        <li>📱 Scan the QR code with Expo Go (Android) or Camera app (iOS)</li>
+                        <li>🤖 Press 'a' to launch on Android Emulator</li>
+                        <li>🍎 Press 'i' to launch on iOS Simulator (Mac only)</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
 
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+        <section>
+            <h2>🎯 Implemented Features</h2>
+            <h3>Start Screen</h3>
+            <ul>
+                <li>📝 User name input field</li>
+                <li>🎨 Background color selection (4 options)</li>
+                <li>▶️ "Start Chatting" button to enter the chat</li>
+                <li>🔐 Anonymous authentication with Firebase</li>
+            </ul>
 
-const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_AUTH_DOMAIN",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_STORAGE_BUCKET",
-messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-appId: "YOUR_APP_ID",
-};
+            <h3>Chat Screen</h3>
+            <ul>
+                <li>👤 User's name displayed in navigation bar</li>
+                <li>🎨 Custom background color based on selection</li>
+                <li>💬 Real-time messaging with Firestore</li>
+                <li>📸 Image sharing (camera and library)</li>
+                <li>📍 Location sharing with interactive maps</li>
+                <li>🔄 Network connectivity detection</li>
+                <li>📴 Offline message caching with AsyncStorage</li>
+                <li>♿ Accessibility support for screen readers</li>
+            </ul>
+        </section>
 
-const app = initializeApp(firebaseConfig);
+      <section>
+    <h2>📄 License</h2>
+    <p>This project is licensed under the MIT License. Find out more at <a href="https://github.com/padmajapinnika/chat-app">GitHub - padmajapinnika/chat-app</a></p>
 
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-</code></pre>
-<p>Make sure to replace the placeholders (<code>YOUR_API_KEY</code>, <code>YOUR_PROJECT_ID</code>, etc.) with your actual Firebase credentials.</p>
+</section>
 
-    <h2>Step 4: Set up the Expo development environment</h2>
-    <p>If you don't have Expo installed, run the following command to install Expo CLI globally:</p>
-    <pre><code>npm install -g expo-cli</code></pre>
-
-    <h3>4.1 Start the App</h3>
-    <p>Once everything is set up, run the following command to start the Expo development server:</p>
-    <pre><code>expo start</code></pre>
-    <p>This will open up a browser window with options to run the app either on an Android emulator, iOS simulator, or physical device.</p>
-
-    <h3>4.2 Android Setup</h3>
-    <p>If you're developing for Android, you'll need <strong>Android Studio</strong>:</p>
-    <ol>
-        <li>Open <strong>Android Studio</strong> and install the necessary SDKs.</li>
-        <li>Set up an Android emulator, or connect your physical Android device via USB (enable Developer Mode and USB debugging).</li>
-        <li>Use <code>expo start</code> to launch the app in the Android emulator or on your device.</li>
-    </ol>
-
-    <h3>4.3 iOS Setup</h3>
-    <p>For iOS development, you'll need <strong>Xcode</strong>:</p>
-    <ol>
-        <li>Open <strong>Xcode</strong> and make sure you have the latest version.</li>
-        <li>Set up an iOS simulator or use a physical iOS device.</li>
-        <li>Use <code>expo start</code> to launch the app on the iOS simulator or on your device.</li>
-    </ol>
-
-    <h2>Step 5: Additional Libraries to Install</h2>
-    <p>Below are the additional libraries that you will need for various features in the app:</p>
-    <ul>
-        <li><strong>Firebase libraries</strong>:
-            <pre><code>npm install firebase</code></pre>
-        </li>
-        <li><strong>React Native libraries</strong> for image picker, location, and action sheets:
-            <pre><code>expo install expo-image-picker</code></pre>
-            <pre><code>expo install expo-location</code></pre>
-            <pre><code>npm install @expo/react-native-action-sheet</code></pre>
-        </li>
-        <li><strong>React Native Gifted Chat</strong>: For the chat UI component.
-            <pre><code>npm install react-native-gifted-chat</code></pre>
-        </li>
-        <li><strong>AsyncStorage</strong>: For caching messages locally when offline.
-            <pre><code>npm install @react-native-async-storage/async-storage</code></pre>
-        </li>
-        <li><strong>React Navigation</strong>: For navigation between screens in the app (if needed).
-            <pre><code>npm install @react-navigation/native @react-navigation/stack</code></pre>
-            <pre><code>npm install react-native-gesture-handler react-native-reanimated</code></pre>
-        </li>
-    </ul>
-
-    <h2>Step 6: Running on Device or Emulator</h2>
-    <p>1. To run the app on an Android emulator or a physical Android device:</p>
-    <pre><code>expo start --android</code></pre>
-
-    <p>2. To run the app on an iOS simulator or a physical iOS device:</p>
-    <pre><code>expo start --ios</code></pre>
-
-    <h2>Troubleshooting</h2>
-    <p>If Firebase credentials are incorrect: Make sure you've added the correct Firebase credentials in <code>firebaseConfig.js</code>.</p>
-    <p>Missing Permissions: Ensure the necessary permissions (camera, location, etc.) are requested from the user when required.</p>
-    <p>Android Emulator Not Working: Check that Android Studio is set up correctly and the AVD is running.</p>
-
-    <h2>Contributing</h2>
-    <p>If you'd like to contribute to the development of this app, feel free to fork this repository and submit a pull request with your changes. Please ensure your code follows the existing style guidelines.</p>
-
-    <h2>License</h2>
-    <p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+    </main>
 
 </body>
 </html>
