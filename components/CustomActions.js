@@ -9,35 +9,35 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userId }) => {
   const actionSheet = useActionSheet();
 
+  // Generate a unique reference name for the uploaded image using user ID and timestamp
   const generateReference = (uri) => {
     const timeStamp = (new Date()).getTime();
     const imageName = uri.split("/")[uri.split("/").length - 1];
     return `${userId}-${timeStamp}-${imageName}`;
   }
 
+  // Upload image to Firebase Storage and send its URL in a message
   const uploadAndSendImage = async (imageURI) => {
     try {
-     const uniqueRefString = generateReference(imageURI);
+      const uniqueRefString = generateReference(imageURI);
       const newUploadRef = ref(storage, uniqueRefString);
-  
+
       const response = await fetch(imageURI);
       const blob = await response.blob();
-  
-      // Ensure the file is uploaded before proceeding
-      await uploadBytes(newUploadRef, blob);
-  
-      // Retrieve the image URL after upload completes
-      const imageURL = await getDownloadURL(newUploadRef);
+
+      await uploadBytes(newUploadRef, blob); // Upload file to Firebase
+      const imageURL = await getDownloadURL(newUploadRef); // Get URL of uploaded image
       
+      // Send image message via onSend callback
       onSend([
         {
-          _id: Math.round(Math.random() * 1000000), // Ensure unique ID
+          _id: Math.round(Math.random() * 1000000),
           createdAt: new Date(),
           user: {
             _id: userId,
             name: "User",
           },
-          image: imageURL, // Correct field for GiftedChat image messages
+          image: imageURL,
         },
       ]);
     } catch (error) {
@@ -46,29 +46,34 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userId })
     }
   };
   
+  // Launch media library for image selection
   const pickImage = async () => {
     let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissions?.granted) {
       let result = await ImagePicker.launchImageLibraryAsync();
       if (!result.canceled) {
         const imageURI = result.assets[0].uri;
-        await uploadAndSendImage(imageURI); // ✅ This sends the image message
+        await uploadAndSendImage(imageURI);
       }
     } else {
       Alert.alert("Permissions haven't been granted.");
     }
   };
   
+  // Launch device camera for photo capture
   const takePhoto = async () => {
     let permissions = await ImagePicker.requestCameraPermissionsAsync();
     if (permissions?.granted) {
       let result = await ImagePicker.launchCameraAsync();
-      if (!result.canceled) await uploadAndSendImage(result.assets[0].uri);
-      else Alert.alert("Permissions haven't been granted.");
+      if (!result.canceled) {
+        await uploadAndSendImage(result.assets[0].uri);
+      }
+    } else {
+      Alert.alert("Permissions haven't been granted.");
     }
   }
-  
-  // Get the user's current location and send it
+
+  // Request and send user's current location
   const getLocation = async () => {
     let permissions = await Location.requestForegroundPermissionsAsync();
     if (permissions.granted) {
@@ -79,8 +84,8 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userId })
             _id: Math.round(Math.random() * 1000000),
             createdAt: new Date(),
             user: {
-              _id: 1, // You can replace this with the actual user ID
-              name: 'User', // Replace with the actual user name
+              _id: 1, // Replace with actual user ID if needed
+              name: 'User', // Replace with actual name if available
             },
             location: {
               longitude: location.coords.longitude,
@@ -95,9 +100,8 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userId })
       Alert.alert("Permissions haven't been granted.");
     }
   };
-  
 
-  // Display the action sheet with options
+  // Handle tap on "+" button to show action sheet options
   const onActionPress = () => {
     const options = ["Choose From Library", "Take Picture", "Send Location", "Cancel"];
     const cancelButtonIndex = options.length - 1;
@@ -134,14 +138,14 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userId })
   );
 };
 
-// Define PropTypes for better type safety
+// Define PropTypes for better type safety and clarity
 CustomActions.propTypes = {
   wrapperStyle: PropTypes.object,
   iconTextStyle: PropTypes.object,
-  onSend: PropTypes.func.isRequired, // Ensure onSend is required
+  onSend: PropTypes.func.isRequired,
 };
 
-// Styles for the button
+// Styling for the "+" button
 const styles = StyleSheet.create({
   container: {
     width: 26,

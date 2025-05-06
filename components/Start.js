@@ -9,24 +9,34 @@ import {
   ImageBackground,
   Alert,
 } from 'react-native';
+
+// Firebase authentication
 import { getAuth, signInAnonymously } from 'firebase/auth';
+
+// For saving data locally (optional, though not currently used)
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Start = ({ navigation }) => {
-  // State to hold the user's name
+  // State to hold user's entered name
   const [name, setName] = useState('');
-// State to hold the selected background color
-  const [selectedColor, setSelectedColor] = useState('#fff'); // Default color
   
+  // State to hold selected background color
+  const [selectedColor, setSelectedColor] = useState('#fff');
+
+  // Initialize Firebase authentication
   const auth = getAuth();
+
+  // Function to handle anonymous sign-in
   const signInUser = () => {
     signInAnonymously(auth)
       .then((result) => {
         if (result.user) {
           const userId = result.user.uid;
-          //console.log("User ID:", userId);
-          
+
+          // Notify user of successful login
           Alert.alert("Sign-in Successful", `Welcome, ${name || 'Anonymous'}`);
+
+          // Navigate to Chat screen with user data
           navigation.navigate('Chat', {
             name: name || 'Anonymous',
             userId: userId,
@@ -40,22 +50,22 @@ const Start = ({ navigation }) => {
       });
   };
 
-  // Function to update the selected color
+  // Function to set selected background color
   const handleColorSelect = (color) => {
     setSelectedColor(color);
   };
 
   return (
-    // Set background image with optional overlay color
+    // Background image with color overlay
     <ImageBackground
-      source={require('../assets/Background Image.png')} // Make sure the path is correct
+      source={require('../assets/Background Image.png')} // Make sure the image exists in assets
       style={[styles.background, { backgroundColor: selectedColor }]}
     >
       <View style={styles.container}>
-        {/* App title */}
+        {/* Title of the app */}
         <Text style={styles.title}>Welcome to ChatApp</Text>
 
-        {/* Text input for user's name */}
+        {/* Input for user name */}
         <TextInput
           style={styles.input}
           placeholder="Your Name"
@@ -63,12 +73,12 @@ const Start = ({ navigation }) => {
           onChangeText={setName}
         />
 
-       
-      {/* Start Chatting button triggers anonymous sign-in */}
-      <TouchableOpacity style={styles.button} onPress={signInUser}>
+        {/* Button to sign in and navigate to Chat */}
+        <TouchableOpacity style={styles.button} onPress={signInUser}>
           <Text style={styles.buttonText}>Start Chatting</Text>
         </TouchableOpacity>
 
+        {/* Color picker section */}
         <Text style={styles.colorTitle}>Choose a background color:</Text>
 
         <View style={styles.colorOptions}>
@@ -85,7 +95,7 @@ const Start = ({ navigation }) => {
   );
 };
 
-// Styles for layout and design
+// Style definitions for all UI elements
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -96,7 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(255,255,255,0.85)', // Overlay for readability
+    backgroundColor: 'rgba(255,255,255,0.85)', // Semi-transparent overlay
     margin: 20,
     borderRadius: 10,
   },
@@ -141,7 +151,7 @@ const styles = StyleSheet.create({
   colorCircle: {
     width: 50,
     height: 50,
-    borderRadius: 25, // Half of width/height to make it circular
+    borderRadius: 25,
     marginHorizontal: 10,
     borderWidth: 2,
     borderColor: '#fff',

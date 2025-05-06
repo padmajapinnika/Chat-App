@@ -15,6 +15,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
 
     let unsubscribe;
 
+    // Load cached messages from AsyncStorage for offline support
     const loadCachedMessages = async () => {
       try {
         const cachedMessages = await AsyncStorage.getItem("messages");
@@ -27,8 +28,10 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
     };
 
     if (isConnected) {
+      // Create query to get messages in descending order
       const messagesQuery = query(collection(db, "messages"), orderBy("createdAt", "desc"));
 
+      // Subscribe to real-time updates from Firestore
       unsubscribe = onSnapshot(messagesQuery, async (snapshot) => {
         const messagesList = snapshot.docs.map(doc => {
           const data = doc.data();
@@ -41,6 +44,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
 
         setMessages(messagesList);
 
+        // Cache the latest messages locally
         try {
           await AsyncStorage.setItem("messages", JSON.stringify(messagesList));
         } catch (error) {
@@ -48,14 +52,17 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
         }
       });
     } else {
+      // If offline, load messages from local cache
       loadCachedMessages();
     }
 
+    // Cleanup Firestore subscription
     return () => {
       if (unsubscribe) unsubscribe();
     };
   }, [db, isConnected, name, navigation]);
 
+  // Send new message to Firestore
   const onSend = (newMessages) => {
     if (isConnected) {
       addDoc(collection(db, "messages"), {
@@ -71,6 +78,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
     }
   };
 
+  // Customize message bubble appearance
   const renderBubble = (props) => (
     <Bubble
       {...props}
@@ -81,19 +89,18 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
     />
   );
 
-  // Hide InputToolbar when offline
+  // Conditionally render input toolbar only when online
   const renderInputToolbar = (props) => {
     if (isConnected) return <InputToolbar {...props} />;
     return null;
   };
 
-  // Render custom actions (e.g., sending images, locations)
+  // Provide custom action buttons (e.g., send image, location)
   const renderCustomActions = (props) => {
     return <CustomActions {...props} onSend={onSend} storage={storage} userID={userId} />;
   };
   
-  
-  // Render MapView if a message contains location data
+  // Render map preview for messages with location data
   const renderCustomView = (props) => {
     const { currentMessage } = props;
     if (currentMessage.location) {
@@ -113,7 +120,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor:backgroundColor  }]}>
+    <View style={[styles.container, { backgroundColor: backgroundColor }]}>
       <GiftedChat
         messages={messages}
         renderBubble={renderBubble}
@@ -126,6 +133,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
           name: name,
         }}
       />
+      {/* Adjust view for keyboard on different platforms */}
       {Platform.OS === "android" ? <KeyboardAvoidingView behavior="height" /> : null}
       {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null}
     </View>
