@@ -1,151 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-</head>
-<body>
+<p>
+  <i>Connect with friends, family, or fellow developers anytime, anywhere!</i>
+</p>
 
-    <h1>ChatApp</h1>
-    <p><i>Connect with friends, family, or fellow developers anytime, anywhere!</i></p>
+## 🚀 Project Description
 
-    <section>
-        <h2>🚀 Project Description</h2>
-        <p>This application provides users with a sleek chat interface and options to share images and their location. Built using React Native, this cross-platform app works on both Android and iOS devices with a single codebase!</p>
+This application provides users with a sleek chat interface and options to share images and their location. Built using React Native, this cross-platform app works on both Android and iOS devices with a single codebase!
 
-        <h3>✨ Key Features</h3>
-        <ul>
-            <li>🎨 <strong>Personalized UI</strong> - Choose your chat background image for a customized experience</li>
-            <li>💬 <strong>Real-time Chat</strong> - Exchange messages with friends and family instantly</li>
-            <li>📷 <strong>Image Sharing</strong> - Send photos from your camera or library</li>
-            <li>🗺️ <strong>Location Sharing</strong> - Let others know where you are with a tap</li>
-            <li>📱 <strong>Offline Access</strong> - Read your conversations even without internet connection</li>
-            <li>♿ <strong>Accessibility</strong> - Fully compatible with screen readers</li>
-        </ul>
+### ✨ Key Features
 
-        <h3>👤 User Stories</h3>
-        <ul>
-            <li>✅ As a new user, I want to <strong>easily enter a chat room</strong> so I can quickly start talking to my friends and family</li>
-            <li>✅ As a user, I want to <strong>send messages</strong> to exchange the latest news</li>
-            <li>✅ As a user, I want to <strong>send images</strong> to show what I'm currently doing</li>
-            <li>✅ As a user, I want to <strong>share my location</strong> with friends</li>
-            <li>✅ As a user, I want to <strong>read messages offline</strong> so I can reread conversations anytime</li>
-            <li>✅ As a user with a visual impairment, I want the app to be <strong>compatible with screen readers</strong></li>
-        </ul>
-    </section>
+- 🎨 **Personalized UI** - Choose your chat background image for a customized experience
+- 💬 **Real-time Chat** - Exchange messages with friends and family instantly
+- 📷 **Image Sharing** - Send photos from your camera or library
+- 🗺️ **Location Sharing** - Let others know where you are with a tap
+- 📱 **Offline Access** - Read your conversations even without internet connection
+- ♿ **Accessibility** - Fully compatible with screen readers
 
-    <section>
-        <h2>🛠️ Technologies Used</h2>
-        <h3>Frontend</h3>
-        <ul>
-            <li>React Native - Core framework</li>
-            <li>Expo - Development platform</li>
-            <li>React Navigation - Navigation between screens</li>
-            <li>Expo Image Picker - Camera and image library access</li>
-            <li>Expo Location - Location services</li>
-            <li>React Native Maps - Map display for location sharing</li>
-        </ul>
+### 👤 User Stories
 
-        <h3>Backend & Storage</h3>
-        <ul>
-            <li>Google Firestore Database - Real-time message storage</li>
-            <li>Google Firebase Authentication - Anonymous user authentication</li>
-            <li>Firebase Cloud Storage - Storage for images</li>
-            <li>AsyncStorage - Offline data persistence</li>
-        </ul>
-    </section>
+- ✅ As a new user, I want to **easily enter a chat room** so I can quickly start talking to my friends and family
+- ✅ As a user, I want to **send messages** to exchange the latest news
+- ✅ As a user, I want to **send images** to show what I'm currently doing
+- ✅ As a user, I want to **share my location** with friends
+- ✅ As a user, I want to **read messages offline** so I can reread conversations anytime
+- ✅ As a user with a visual impairment, I want the app to be **compatible with screen readers**
 
-    <section>
-        <h2>⚙️ Setup and Installation</h2>
-        <h3>Prerequisites</h3>
-        <ul>
-            <li>📦 Node.js</li>
-            <li>🧰 Expo CLI</li>
-            <li>📱 Expo Go app (for physical device testing)</li>
-            <li>🤖 Android Studio (for Android Emulator)</li>
-            <li>🍎 Xcode (for iOS Simulator, Mac only)</li>
-            <li>🔥 Firebase Account</li>
-        </ul>
+## 🛠️ Technologies Used
 
-        <h3>Installation Steps</h3>
-        <ol>
-            <li>Clone the repository:
-                <pre><code>git clone https://github.com/padmajapinnika/chat-app.git</code></pre>
-            </li>
-            <li>Navigate to the project directory:
-                <pre><code>cd chat-app</code></pre>
-            </li>
-            <li>Install dependencies:
-                <pre><code>npm install</code></pre>
-            </li>
-            <li>Firebase Setup:
-                <ul>
-                    <li>Create a Firebase project at <a href="https://firebase.google.com">firebase.google.com</a></li>
-                    <li>Enable Firestore Database</li>
-                    <li>Enable Firebase Authentication (Anonymous)</li>
-                    <li>Enable Firebase Storage</li>
-                    <li>Set Storage security rules to allow authenticated reads and writes:</li>
-                    <pre><code>
-                        rules_version = '2';
-                        service firebase.storage {
-                          match /b/{bucket}/o {
-                            match /{allPaths=**} {
-                              allow read, write: if request.auth != null;
-                            }
-                          }
-                        }
-                    </code></pre>
-                    <li>Get your Firebase configuration details and update them in App.js.</li>
-                </ul>
-            </li>
-            <li>Install required dependencies:
-                <pre><code>expo install @react-navigation/native @react-navigation/native-stack</code></pre>
-                <pre><code>expo install @react-native-async-storage/async-storage</code></pre>
-                <pre><code>expo install @react-native-community/netinfo</code></pre>
-                <pre><code>expo install expo-image-picker</code></pre>
-                <pre><code>expo install expo-location</code></pre>
-                <pre><code>expo install react-native-maps</code></pre>
-                <pre><code>expo install @expo/react-native-action-sheet</code></pre>
-                <pre><code>npm install firebase</code></pre>
-            </li>
-            <li>Start the Expo development server:
-                <pre><code>npx expo start</code></pre>
-            </li>
-            <li>Run on your preferred platform:
-                <ul>
-                    <li>📱 Scan the QR code with Expo Go (Android) or Camera app (iOS)</li>
-                    <li>🤖 Press 'a' to launch on Android Emulator</li>
-                    <li>🍎 Press 'i' to launch on iOS Simulator (Mac only)</li>
-                </ul>
-            </li>
-        </ol>
-    </section>
+- **Frontend**
+  - React Native - Core framework
+  - Expo - Development platform
+  - React Navigation - Navigation between screens
+  - Expo Image Picker - Camera and image library access
+  - Expo Location - Location services
+  - React Native Maps - Map display for location sharing
+- **Backend & Storage**
+  - Google Firestore Database - Real-time message storage
+  - Google Firebase Authentication - Anonymous user authentication
+  - Firebase Cloud Storage - Storage for images
+  - AsyncStorage - Offline data persistence
 
-    <section>
-        <h2>🎯 Implemented Features</h2>
-        <h3>Start Screen</h3>
-        <ul>
-            <li>📝 User name input field</li>
-            <li>🎨 Background color selection (4 options)</li>
-            <li>▶️ "Start Chatting" button to enter the chat</li>
-            <li>🔐 Anonymous authentication with Firebase</li>
-        </ul>
+## 📱 Screenshots
 
-        <h3>Chat Screen</h3>
-        <ul>
-            <li>👤 User's name displayed in navigation bar</li>
-            <li>🎨 Custom background color based on selection</li>
-            <li>💬 Real-time messaging with Firestore</li>
-            <li>📸 Image sharing (camera and library)</li>
-            <li>📍 Location sharing with interactive maps</li>
-            <li>🔄 Network connectivity detection</li>
-            <li>📴 Offline message caching with AsyncStorage</li>
-            <li>♿ Accessibility support for screen readers</li>
-        </ul>
-    </section>
+_Please check the repository for demonstration video_
 
-    <section>
-        <h2>📄 License</h2>
-        <p>This project is licensed under the MIT License. Find out more at <a href="https://github.com/padmajapinnika/chat-app">GitHub - padmajapinnika/chat-app</a></p>
-    </section>
+## ⚙️ Setup and Installation
 
-</body>
-</html>
+### Prerequisites
+
+- 📦 Node.js
+- 🧰 Expo CLI
+- 📱 Expo Go app (for physical device testing)
+- 🤖 Android Studio (for Android Emulator)
+- 🍎 Xcode (for iOS Simulator, Mac only)
+- 🔥 Firebase Account
+
+### Installation Steps
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/padmajapinnika/chat-app.git
+   ```
+
+2. **Navigate to the project directory**:
+
+   ```bash
+   cd chat-app
+   ```
+
+3. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+4. **Firebase Setup**:
+
+   - Create a Firebase project at [firebase.google.com](https://firebase.google.com)
+   - Enable Firestore Database
+   - Enable Firebase Authentication (Anonymous)
+   - Enable Firebase Storage
+   - Set Storage security rules to allow authenticated reads and writes:
+     ```
+     rules_version = '2';
+     service firebase.storage {
+       match /b/{bucket}/o {
+         match /{allPaths=**} {
+           allow read, write: if request.auth != null;
+         }
+       }
+     }
+     ```
+   - Get your Firebase configuration details (apiKey, authDomain, etc.)
+   - Update the Firebase configuration in App.js with your values:
+     ```javascript
+     const firebaseConfig = {
+       apiKey: "YOUR_API_KEY",
+       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+       projectId: "YOUR_PROJECT_ID",
+       storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+       messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+       appId: "YOUR_APP_ID",
+     };
+     ```
+
+5. **Install required dependencies**:
+
+   ```bash
+   expo install @react-navigation/native @react-navigation/native-stack
+   expo install @react-native-async-storage/async-storage
+   expo install @react-native-community/netinfo
+   expo install expo-image-picker
+   expo install expo-location
+   expo install react-native-maps
+   expo install @expo/react-native-action-sheet
+   npm install firebase
+   ```
+
+6. **Start the Expo development server**:
+
+   ```bash
+   npx expo start
+   ```
+
+7. **Run on your preferred platform**:
+   - 📱 Scan the QR code with Expo Go (Android) or Camera app (iOS)
+   - 🤖 Press 'a' to launch on Android Emulator
+   - 🍎 Press 'i' to launch on iOS Simulator (Mac only)
+
+## 🎯 Implemented Features
+
+### Start Screen
+
+- 📝 User name input field
+- 🎨 Background color selection (4 options)
+- ▶️ "Start Chatting" button to enter the chat
+- 🔐 Anonymous authentication with Firebase
+
+### Chat Screen
+
+- 👤 User's name displayed in navigation bar
+- 🎨 Custom background color based on selection
+- 💬 Real-time messaging with Firestore
+- 📸 Image sharing (camera and library)
+- 📍 Location sharing with interactive maps
+- 🔄 Network connectivity detection
+- 📴 Offline message caching with AsyncStorage
+- ♿ Accessibility support for screen readers
+
+### Communication Features
+
+- 📱 Custom action menu for additional options
+- 📤 Image uploading to Firebase Storage
+- 🗺️ Location sharing with MapView
+- 🔄 Real-time updates across devices
+
+## 👨‍💻 Development Process
+
+This application was developed as part of the Full-Stack Web Development Program at Career Foundry. The app was created through a series of exercises that gradually added functionality to meet the project requirements.
+
+## 📋 Progress Tracker
+
+- [x] Setup development environment
+- [x] Create Start screen with UI elements
+- [x] Implement navigation between screens
+- [x] Implement chat UI
+- [x] Set up Firebase authentication
+- [x] Implement data storage with Firestore
+- [x] Add offline storage capabilities
+- [x] Implement image sharing
+- [x] Implement location sharing
+- [x] Add accessibility features
+
+## 📄 License
+
+This project is licensed under the MIT License
