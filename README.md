@@ -1,21 +1,23 @@
+<h1>Chat-App</h1>
+
 <p>
   <i>Connect with friends, family, or fellow developers anytime, anywhere!</i>
 </p>
 
 ## 🚀 Project Description
 
-This application provides users with a sleek chat interface and options to share images and their location. Built using React Native, this cross-platform app works on both Android and iOS devices with a single codebase!
+This application provides users with a chat interface and options to share images and their location. Built using React Native, this cross-platform app works on both Android and iOS devices with a single codebase!
 
 ### ✨ Key Features
 
-- 🎨 **Personalized UI** - Choose your chat background image for a customized experience
-- 💬 **Real-time Chat** - Exchange messages with friends and family instantly
-- 📷 **Image Sharing** - Send photos from your camera or library
-- 🗺️ **Location Sharing** - Let others know where you are with a tap
-- 📱 **Offline Access** - Read your conversations even without internet connection
-- ♿ **Accessibility** - Fully compatible with screen readers
+- **Personalized UI** - Choose your chat background image for a customized experience
+- **Real-time Chat** - Exchange messages with friends and family instantly
+- **Image Sharing** - Send photos from your camera or library
+- **Location Sharing** - Let others know where you are with a tap
+- **Offline Access** - Read your conversations even without internet connection
+- **Accessibility** - Fully compatible with screen readers
 
-### 👤 User Stories
+### User Stories
 
 - ✅ As a new user, I want to **easily enter a chat room** so I can quickly start talking to my friends and family
 - ✅ As a user, I want to **send messages** to exchange the latest news
@@ -39,20 +41,16 @@ This application provides users with a sleek chat interface and options to share
   - Firebase Cloud Storage - Storage for images
   - AsyncStorage - Offline data persistence
 
-## 📱 Screenshots
-
-_Please check the repository for demonstration video_
-
 ## ⚙️ Setup and Installation
 
 ### Prerequisites
 
-- 📦 Node.js
-- 🧰 Expo CLI
-- 📱 Expo Go app (for physical device testing)
-- 🤖 Android Studio (for Android Emulator)
-- 🍎 Xcode (for iOS Simulator, Mac only)
-- 🔥 Firebase Account
+- Node.js
+- Expo CLI
+- Expo Go app (for physical device testing)
+- Android Studio (for Android Emulator)
+- Xcode (for iOS Simulator, Mac only)
+- Firebase Account
 
 ### Installation Steps
 
@@ -124,42 +122,42 @@ _Please check the repository for demonstration video_
    ```
 
 7. **Run on your preferred platform**:
-   - 📱 Scan the QR code with Expo Go (Android) or Camera app (iOS)
-   - 🤖 Press 'a' to launch on Android Emulator
-   - 🍎 Press 'i' to launch on iOS Simulator (Mac only)
+   - Scan the QR code with Expo Go (Android) or Camera app (iOS)
+   - Press 'a' to launch on Android Emulator
+   - Press 'i' to launch on iOS Simulator (Mac only)
 
 ## 🎯 Implemented Features
 
 ### Start Screen
 
-- 📝 User name input field
-- 🎨 Background color selection (4 options)
-- ▶️ "Start Chatting" button to enter the chat
-- 🔐 Anonymous authentication with Firebase
+- User name input field
+- Background color selection (4 options)
+- "Start Chatting" button to enter the chat
+- Anonymous authentication with Firebase
 
 ### Chat Screen
 
-- 👤 User's name displayed in navigation bar
-- 🎨 Custom background color based on selection
-- 💬 Real-time messaging with Firestore
-- 📸 Image sharing (camera and library)
-- 📍 Location sharing with interactive maps
-- 🔄 Network connectivity detection
-- 📴 Offline message caching with AsyncStorage
-- ♿ Accessibility support for screen readers
+- User's name displayed in navigation bar
+- Custom background color based on selection
+- Real-time messaging with Firestore
+- Image sharing (camera and library)
+- Location sharing with interactive maps
+- Network connectivity detection
+- Offline message caching with AsyncStorage
+- Accessibility support for screen readers
 
 ### Communication Features
 
-- 📱 Custom action menu for additional options
-- 📤 Image uploading to Firebase Storage
-- 🗺️ Location sharing with MapView
-- 🔄 Real-time updates across devices
+- Custom action menu for additional options
+- Image uploading to Firebase Storage
+- Location sharing with MapView
+- Real-time updates across devices
 
-## 👨‍💻 Development Process
+## Development Process
 
 This application was developed as part of the Full-Stack Web Development Program at Career Foundry. The app was created through a series of exercises that gradually added functionality to meet the project requirements.
 
-## 📋 Progress Tracker
+## Progress Tracker
 
 - [x] Setup development environment
 - [x] Create Start screen with UI elements
